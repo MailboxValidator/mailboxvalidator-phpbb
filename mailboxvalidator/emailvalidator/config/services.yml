@@ -1,0 +1,26 @@
+imports:
+    - { resource: parameters.yml }
+
+services:
+    mailboxvalidator.emailvalidator.controller.acp:
+        class: mailboxvalidator\emailvalidator\controller\acp_controller
+        arguments:
+            - '@config'
+            - '@language'
+            - '@log'
+            - '@request'
+            - '@template'
+            - '@user'
+
+    mailboxvalidator.emailvalidator.service:
+        class: mailboxvalidator\emailvalidator\service
+        arguments:
+            - '@user'
+            - '%mailboxvalidator.emailvalidator.tables.emailvalidator_table%'
+
+    mailboxvalidator.emailvalidator.listener:
+        class: mailboxvalidator\emailvalidator\event\main_listener
+        arguments:
+            - '@config'
+        tags:
+            - { name: event.listener }

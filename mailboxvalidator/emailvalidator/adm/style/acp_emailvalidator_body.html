@@ -1,0 +1,47 @@
+{% include 'overall_header.html' %}
+
+<h1>{{ lang('ACP_EMAILVALIDATOR_TITLE') }}</h1>
+
+{% if S_ERROR %}
+	<div class="errorbox">
+		<h3>{{ lang('WARNING') }}</h3>
+		<p>{{ ERROR_MSG }}</p>
+	</div>
+{% endif %}
+
+<form id="mailboxvalidator_emailvalidator_acp" name="mailboxvalidator_emailvalidator_acp" method="post" action="{{ U_ACTION }}">
+
+	<fieldset>
+		<legend>{{ lang('SETTINGS') }}</legend>
+		<dl>
+			<dt><label for="mailboxvalidator_emailvalidator_apikey">{{ lang('ACP_MBV_SETTINGS_APIKEY_LABEL') }}</label><br /><span>{{ lang('ACP_MBV_SETTINGS_APIKEY_DESC') }}<a target="_blank" href="https://www.mailboxvalidator.com/pay/9">MailboxValidator</a></span></dt>
+			<dd>
+				<input type="text" size="40" maxlength="60" name="mailboxvalidator_emailvalidator_apikey" value="{MAILBOXVALIDATOR_EMAILVALIDATOR_APIKEY}"/>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="mailboxvalidator_emailvalidator_valid_email_on_off">{{ lang('ACP_MBV_VALID_EMAIL') }}</label></dt>
+			<dd><label><input type="radio" class="radio" name="mailboxvalidator_emailvalidator_valid_email_on_off" value="1" {% if MAILBOXVALIDATOR_EMAILVALIDATOR_VALID_EMAIL_ON_OFF %}checked="checked" {% endif %}/> ON </label>
+				<label><input type="radio" class="radio" name="mailboxvalidator_emailvalidator_valid_email_on_off" value="0" {% if not MAILBOXVALIDATOR_EMAILVALIDATOR_VALID_EMAIL_ON_OFF %}checked="checked" {% endif %}/> OFF</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="mailboxvalidator_emailvalidator_valid_email_on_off">{{ lang('ACP_MBV_DISPOSABLE_EMAIL') }}</label></dt>
+			<dd><label><input type="radio" class="radio" name="mailboxvalidator_emailvalidator_disposable_on_off" value="1" {% if MAILBOXVALIDATOR_EMAILVALIDATOR_DISPOSABLE_ON_OFF %}checked="checked" {% endif %}/> ON </label>
+				<label><input type="radio" class="radio" name="mailboxvalidator_emailvalidator_disposable_on_off" value="0" {% if not MAILBOXVALIDATOR_EMAILVALIDATOR_DISPOSABLE_ON_OFF %}checked="checked" {% endif %}/> OFF</label></dd>
+		</dl>
+		<dl>
+			<dt><label for="mailboxvalidator_emailvalidator_valid_email_on_off">{{ lang('ACP_MBV_FREE_EMAIL') }}</label></dt>
+			<dd><label><input type="radio" class="radio" name="mailboxvalidator_emailvalidator_free_on_off" value="1" {% if MAILBOXVALIDATOR_EMAILVALIDATOR_FREE_ON_OFF %}checked="checked" {% endif %}/> ON </label>
+				<label><input type="radio" class="radio" name="mailboxvalidator_emailvalidator_free_on_off" value="0" {% if not MAILBOXVALIDATOR_EMAILVALIDATOR_FREE_ON_OFF %}checked="checked" {% endif %}/> OFF</label></dd>
+		</dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		<!--<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />-->
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+
+</form>
+
+{% include 'overall_footer.html' %}

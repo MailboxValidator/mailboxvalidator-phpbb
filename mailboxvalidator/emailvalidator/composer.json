@@ -1,0 +1,27 @@
+{
+    "name": "mailboxvalidator/emailvalidator",
+    "type": "phpbb-extension",
+    "description": "Help PHPBB admin to block invalid email from the forum.",
+    "homepage": "https://mailboxvalidator.com",
+    "version": "1.0.0",
+    "time": "2020-01-17",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "MailboxValidator",
+            "email": "support@mailboxvalidator.com",
+            "homepage": "https://mailboxvalidator.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "composer/installers": "~1.0"
+    },
+    "extra": {
+        "display-name": "MailboxValidator Email Validator",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.2.0,<3.4.0@dev"
+        }
+    }
+}

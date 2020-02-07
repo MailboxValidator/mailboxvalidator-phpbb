@@ -1,0 +1,2 @@
+parameters:
+    mailboxvalidator.emailvalidator.tables.emailvalidator_table: '%core.table_prefix%mailboxvalidator_emailvalidator_table'
