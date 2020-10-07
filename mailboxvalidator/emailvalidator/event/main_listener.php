@@ -67,7 +67,7 @@ class main_listener implements EventSubscriberInterface
 		try
 		{
 			// Now we need to send the data to MBV API Key and return back the result.
-			$url = 'https://api.mailboxvalidator.com/v1/validation/single?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress);
+			$url = 'https://api.mailboxvalidator.com/v1/validation/single?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
 			// Get the result from MBV API.
 			$results = file_get_contents($url);
 			if ($results != '') 
@@ -161,7 +161,7 @@ class main_listener implements EventSubscriberInterface
 		try
 		{
 			// Now we need to send the data to MBV API Key and return back the result.
-			$url = 'https://api.mailboxvalidator.com/v1/email/free?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress);
+			$url = 'https://api.mailboxvalidator.com/v1/email/free?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
 			// Get the result from MBV API.
 			$results = file_get_contents($url);
 			// Decode the return json results and return the data.
@@ -191,7 +191,7 @@ class main_listener implements EventSubscriberInterface
 	public function phpbb_mbv_is_disposable($emailAddress,$api_key) {
 		try{
 			// Now we need to send the data to MBV API Key and return back the result.
-			$url = 'https://api.mailboxvalidator.com/v1/email/disposable?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress);
+			$url = 'https://api.mailboxvalidator.com/v1/email/disposable?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
 			// Get the result from MBV API.
 			$results = file_get_contents($url);
 
@@ -233,8 +233,7 @@ class main_listener implements EventSubscriberInterface
 			return;
 		}
 
-		// if ($this->config['cleantalk_antispam_regs'])
-		// {
+	
 			$data = $event->get_data();
 			if (array_key_exists('user_row', $data) && is_array($data['user_row']) && array_key_exists('user_email', $data['user_row']))
 			{
@@ -245,11 +244,7 @@ class main_listener implements EventSubscriberInterface
 				// $is_role = $this->config['mailboxvalidator_emailvalidator_role_on_off'] == 1 && $single_result != '' ? $this->phpbb_mbv_is_role($single_result) : false;
 				$is_disposable = $this->config['mailboxvalidator_emailvalidator_disposable_on_off'] == 1 ? $this->phpbb_mbv_is_disposable($email, $this->config['mailboxvalidator_emailvalidator_apikey']) : false;
 				$is_free = $this->config['mailboxvalidator_emailvalidator_free_on_off'] == 1 ? $this->phpbb_mbv_is_free($email, $this->config['mailboxvalidator_emailvalidator_apikey']) : false;
-				// file_put_contents('mbv_log.log', 'Email: ' . $data['user_row']['user_email'] . PHP_EOL, FILE_APPEND);
-				// file_put_contents ('mbv_log.log' , 'mailboxvalidator_emailvalidator_valid_email_on_off: ' . $this->config['mailboxvalidator_emailvalidator_valid_email_on_off'] . PHP_EOL, FILE_APPEND);
-				// file_put_contents ('mbv_log.log' , 'mailboxvalidator_emailvalidator_disposable_on_off: ' . $this->config['mailboxvalidator_emailvalidator_disposable_on_off'] . PHP_EOL, FILE_APPEND);
-				// file_put_contents ('mbv_log.log' , 'mailboxvalidator_emailvalidator_free_on_off: ' . $this->config['mailboxvalidator_emailvalidator_free_on_off'] . PHP_EOL, FILE_APPEND);
-				// file_put_contents ('mbv_log.log' , var_export($this->config, true) . PHP_EOL, FILE_APPEND);
+				
 				if($is_valid_email == false)
 				{
 					trigger_error('The email entered is invalid.');
@@ -264,7 +259,7 @@ class main_listener implements EventSubscriberInterface
 					
 				}
 			}
-		// }
-		trigger_error('Cannot register yet.');
+	
+		//trigger_error('Cannot register yet.');
 	}
 }
