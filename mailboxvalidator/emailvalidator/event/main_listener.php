@@ -3,7 +3,7 @@
  *
  * MailboxValidator Email Validator. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2020, MailboxValidator, https://mailboxvalidator.com
+ * @copyright (c) 2023, MailboxValidator, https://mailboxvalidator.com
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
@@ -67,7 +67,8 @@ class main_listener implements EventSubscriberInterface
 		try
 		{
 			// Now we need to send the data to MBV API Key and return back the result.
-			$url = 'https://api.mailboxvalidator.com/v1/validation/single?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
+			// $url = 'https://api.mailboxvalidator.com/v1/validation/single?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
+			$url = 'https://api.mailboxvalidator.com/v2/validation/single?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
 			// Get the result from MBV API.
 			$results = file_get_contents($url);
 			if ($results != '') 
@@ -97,14 +98,14 @@ class main_listener implements EventSubscriberInterface
 	{
 		if ($api_result != '') 
 		{
-			if ($api_result['error_message'] == '') 
+			if (!array_key_exists('error', $api_result)) 
 			{
-				if ($api_result['status'] == 'False') 
-				{
-					return false;
-				} else 
+				if ($api_result['status']) 
 				{
 					return true;
+				} else 
+				{
+					return false;
 				}
 			} else 
 			{
@@ -128,7 +129,7 @@ class main_listener implements EventSubscriberInterface
 	{
 		if ($api_result != '') 
 		{
-			if ($api_result['error_message'] == '') 
+			if (!array_key_exists('error', $api_result)) 
 			{
 				if ($api_result['is_role'] == 'True') 
 				{
@@ -161,20 +162,20 @@ class main_listener implements EventSubscriberInterface
 		try
 		{
 			// Now we need to send the data to MBV API Key and return back the result.
-			$url = 'https://api.mailboxvalidator.com/v1/email/free?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
+			$url = 'https://api.mailboxvalidator.com/v2/email/free?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
 			// Get the result from MBV API.
 			$results = file_get_contents($url);
 			// Decode the return json results and return the data.
 			$data = json_decode($results,true);
 
-			if ($data['error_message'] == '') 
+			if (!array_key_exists('error', $data)) 
 			{
-				if ($data['is_free'] == 'False') 
-				{
-					return false;
-				} else 
+				if ($data['is_free']) 
 				{
 					return true;
+				} else 
+				{
+					return false;
 				}
 			} else 
 			{
@@ -191,21 +192,21 @@ class main_listener implements EventSubscriberInterface
 	public function phpbb_mbv_is_disposable($emailAddress,$api_key) {
 		try{
 			// Now we need to send the data to MBV API Key and return back the result.
-			$url = 'https://api.mailboxvalidator.com/v1/email/disposable?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
+			$url = 'https://api.mailboxvalidator.com/v2/email/disposable?key=' . str_replace(' ','',$api_key) . '&email=' . str_replace(' ','',$emailAddress) . '&source=phpbb';
 			// Get the result from MBV API.
 			$results = file_get_contents($url);
 
 			// Decode the return json results and return the data.
 			$data = json_decode($results,true);
-
-			if ($data['error_message'] == '') 
+			
+			if (!array_key_exists('error', $data)) 
 			{
-				if ($data['is_disposable'] == 'False') 
-				{
-					return false;
-				} else 
+				if ($data['is_disposable']) 
 				{
 					return true;
+				} else 
+				{
+					return false;
 				}
 			} else 
 			{
