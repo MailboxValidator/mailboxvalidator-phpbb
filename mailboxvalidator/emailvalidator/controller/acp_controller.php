@@ -3,7 +3,7 @@
  *
  * MailboxValidator Email Validator. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2020, MailboxValidator, https://mailboxvalidator.com
+ * @copyright (c) 2024, MailboxValidator, https://mailboxvalidator.com
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
